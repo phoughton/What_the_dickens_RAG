@@ -1,18 +1,19 @@
-# Python Project Template for your projects
+# Simple Vector database
 
-Use as a template for python repos, just basics to support python development and testing.
+## Setup
 
-
-## Run the tests
 ```bash
-python -m pytest
+pip install -r requirements.txt
 ```
-## Debugger
 
-The `launch.json` file includes the necessary config to support using the vscode python debugger with pytest.
+## Run the code
+
+```bash
+python db_pop.py
+```
+
+## What does it do?
+
+It will load in a couple of PDFs into a Chroma Vector Database, and then execute a query on it.
 
 
-# Docker Container
-
-Here is the [Dockerfile](https://github.com/phoughton/python_dev_container) for this template repo.
-(Its in a seperate Repo)
