@@ -1,1 +1,4 @@
 pytest
+chromadb
+PyPDF2
+PyCryptodome
