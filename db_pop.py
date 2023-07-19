@@ -10,7 +10,7 @@ def extract_text_from_pdf(file_path: str, pdf_file_name: str) -> list:
     text = []
 
     for num, page in enumerate(pdf_reader.pages):
-        text.append({"source": {pdf_file_name: f"page {num + 1}"},
+        text.append({"id": f"{pdf_file_name}: page {num + 1}",
                     "page_of_text": page.extract_text()})
 
     pdf_file_obj.close()
@@ -33,9 +33,9 @@ def read_all_pdfs(pdf_folder: str) -> list:
 
 books_and_text = read_all_pdfs("data/")
 
-metadata_sources = []
+ids = []
 for page in books_and_text:
-    metadata_sources.append(page["source"])
+    ids.append(page["id"])
 
 document_pages = []
 for page in books_and_text:
@@ -45,10 +45,15 @@ chroma_client = chromadb.Client()
 
 collection = chroma_client.create_collection(name="test_collection")
 
+
+book_names_metadata = []
+for id in ids:
+    book_names_metadata.append({id.split(":")[0]: id.split(":")[1]})
+
 collection.add(
     documents=document_pages,
-    metadatas=metadata_sources,
-    ids=[f"id{i+1}" for i in range(len(document_pages))]
+    metadatas=book_names_metadata,
+    ids=ids
     )
 
 results = collection.query(
