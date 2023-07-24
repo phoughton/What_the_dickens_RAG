@@ -23,9 +23,9 @@ def read_all_files(file_path: str,
 books = read_all_files("data_in/bank_of_england/",
                        ".pdf",
                        extract_from_pdf)
-# books += read_all_files("data_in/charles_dickens/",
-#                         ".txt",
-#                         extract_from_txt)
+books += read_all_files("data_in/charles_dickens/",
+                        ".txt",
+                        extract_from_txt)
 
 chroma_client = chromadb.Client(
     # Settings(

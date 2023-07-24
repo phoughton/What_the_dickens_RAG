@@ -59,9 +59,20 @@ def extract_from_txt(file_path: str,
 
     paragraphs = txt_file_obj.read().split("\n\n")
 
+    current_chunk = ""
+    current_chunk_id = ""
     for num, paragraph in enumerate(paragraphs):
-        chunks.append(paragraph)
-        ids.append(f"{file_name}: paragraph {num + 1}")
+        if len(current_chunk) + len(paragraph) > 4000:
+            chunks.append(current_chunk)
+            ids.append(current_chunk_id)
+            current_chunk = ""
+            current_chunk_id = ""
+        current_chunk += paragraph + "\n\n"
+        current_chunk_id += f"{file_name}: paragraph {num + 1}, "
+
+    if current_chunk:
+        chunks.append(current_chunk)
+        ids.append(current_chunk_id)
 
     txt_file_obj.close()
 
