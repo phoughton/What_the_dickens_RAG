@@ -5,16 +5,19 @@ import PyPDF2
 class Document:
     """Document class for storing book information and extracting text from it."""
 
-    ids = []
-    book_chunks = []
-    name = ""
-
     def __init__(self, file_path: str,
                  file_name: str,
                  extractor: Callable) -> None:
 
+        self.ids = []
+        self.book_chunks = []
+        self.name = ""
+        self.metadata_dicts = []
+
         self.ids, self.book_chunks = extractor(file_path, file_name)
         self.name = file_name.split(".")[0]
+        for id in self.ids:
+            self.metadata_dicts.append({self.name: id})
 
     def __str__(self) -> str:
         return f"Document: {self.name}"
@@ -27,6 +30,9 @@ class Document:
 
     def get_ids(self) -> list:
         return self.ids
+    
+    def get_metadata(self) -> list:
+        return self.metadata_dicts
 
 
 def extract_from_pdf(file_path: str, file_name: str) -> list:

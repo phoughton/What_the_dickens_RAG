@@ -37,11 +37,10 @@ collection = chroma_client.create_collection(name="book_collection")
 
 for book in books:
     print(book)
-    metadata = [book.name]*len(book.ids)
 
     collection.add(
         documents=book.get_book_chunks(),
-        metadatas=metadata,
+        metadatas=book.get_metadata(),
         ids=book.get_ids()
         )
 
