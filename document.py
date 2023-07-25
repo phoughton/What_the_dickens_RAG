@@ -4,7 +4,7 @@ import os
 
 
 class Document:
-    """Document class for storing book information and extracting text from it."""
+    """For storing book information and extracting text from it."""
 
     def __init__(self, file_path: str,
                  file_name: str,
@@ -31,7 +31,7 @@ class Document:
 
     def get_ids(self) -> list:
         return self.ids
-    
+
     def get_metadata(self) -> list:
         return self.metadata_dicts
 
