@@ -1,23 +1,7 @@
 import chromadb
-import os
 import json
 from chromadb.config import Settings
-from document import extract_from_pdf, extract_from_txt, Document
-
-
-def read_all_files(file_path: str,
-                   file_extension: str,
-                   extract_func) -> list:
-
-    books = []
-
-    for file_name in os.listdir(file_path):
-        if file_name.endswith(file_extension):
-            books.append(Document(file_path,
-                                  file_name,
-                                  extractor=extract_func))
-
-    return books
+from document import extract_from_pdf, extract_from_txt, read_all_files
 
 
 books = read_all_files("data_in/bank_of_england/",
@@ -45,7 +29,7 @@ for book in books:
         )
 
 results = collection.query(
-    query_texts=["guilty", "innocent"],
+    query_texts=["guilty or innocent"],
     n_results=2
 )
 

@@ -1,5 +1,6 @@
 from typing import Callable, List, Tuple
 import PyPDF2
+import os
 
 
 class Document:
@@ -77,3 +78,18 @@ def extract_from_txt(file_path: str,
     txt_file_obj.close()
 
     return ids, chunks
+
+
+def read_all_files(file_path: str,
+                   file_extension: str,
+                   extract_func) -> list:
+
+    books = []
+
+    for file_name in os.listdir(file_path):
+        if file_name.endswith(file_extension):
+            books.append(Document(file_path,
+                                  file_name,
+                                  extractor=extract_func))
+
+    return books
