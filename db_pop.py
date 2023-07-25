@@ -1,7 +1,7 @@
 import chromadb
-import json
 from chromadb.config import Settings
 from document import extract_from_pdf, extract_from_txt, read_all_files
+import config
 
 
 books = read_all_files("data_in/bank_of_england/",
@@ -12,12 +12,12 @@ books += read_all_files("data_in/charles_dickens/",
                         extract_from_txt)
 
 chroma_client = chromadb.Client(
-    # Settings(
-    # chroma_db_impl="duckdb+parquet",
-    # persist_directory="data_store/vector_db")
-    )
+    Settings(
+        chroma_db_impl=config.DB_IMPL,
+        persist_directory=config.DB_LOCATION
+    ))
 
-collection = chroma_client.create_collection(name="book_collection")
+collection = chroma_client.create_collection(name=config.DB_NAME)
 
 for book in books:
     print(book)
@@ -27,11 +27,3 @@ for book in books:
         metadatas=book.get_metadata(),
         ids=book.get_ids()
         )
-
-results = collection.query(
-    query_texts=["guilty or innocent"],
-    n_results=2
-)
-
-
-print(json.dumps(results, indent=4))
