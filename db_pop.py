@@ -1,6 +1,6 @@
 import chromadb
 from chromadb.config import Settings
-from document import extract_from_pdf, extract_from_txt, read_all_files
+from textract import extract_from_pdf, extract_from_txt, read_all_files
 import config
 
 
