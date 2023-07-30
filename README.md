@@ -6,14 +6,21 @@
 pip install -r requirements.txt
 ```
 
-## Run the code
+## Run the setup code
 
 ```bash
 python db_pop.py
 ```
 
+## Run the query code
+
+```bash
+python db_query.py
+```
+
 ## What does it do?
 
-It will load in a couple of PDFs into a Chroma Vector Database, and then execute a query on it.
+`db_pop.py` will load several files into a Chroma Vector Database, persisted to the file system.
 
+And then `db_query.py` will execute a query on that db.
 
