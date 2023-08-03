@@ -1,4 +1,7 @@
 pytest
+pysqlite3-binary
 chromadb
 PyPDF2
-PyCryptodome
+openai
+python-decouple
+matplotlib

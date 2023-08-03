@@ -6,6 +6,13 @@
 pip install -r requirements.txt
 ```
 
+Add the OpenAI API key to the .env file
+```
+API_KEY="sk-YOUR_API_KEY
+ORG_ID="org-YOUR ORG_ID"
+```
+
+
 ## Run the setup code
 
 ```bash
