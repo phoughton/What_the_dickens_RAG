@@ -1,7 +1,6 @@
 from decouple import config
+import db_query
 import openai
-import requests
-
 
 
 openai.api_key = config("API_KEY")
@@ -14,3 +13,8 @@ You are an expert on Charles Dickens, and you are talking to a student who is st
 You will reply politely and informative to the student's questions.
 """}
 ]
+
+# Ask the user to input a question about the works of Charles Dickens
+question = input("Ask me a question about the works of Charles Dickens: ")
+
+relavent_data = db_query.get_chroma_response(question)

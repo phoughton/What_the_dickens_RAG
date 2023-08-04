@@ -1,21 +1,14 @@
 import chromadb
-from chromadb.config import Settings
-from textract import extract_from_pdf, extract_from_txt, read_all_files
+from textract import extract_from_txt, read_all_files
 import config
 
 
-books = read_all_files("data_in/bank_of_england/",
-                       ".pdf",
-                       extract_from_pdf)
-books += read_all_files("data_in/charles_dickens/",
-                        ".txt",
-                        extract_from_txt)
+books = read_all_files("data_in/charles_dickens/",
+                       ".txt",
+                       extract_from_txt)
 
-chroma_client = chromadb.Client(
-    Settings(
-        chroma_db_impl=config.DB_IMPL,
-        persist_directory=config.DB_LOCATION
-    ))
+chroma_client = chromadb.PersistentClient(path=config.DB_LOCATION)
+
 
 collection = chroma_client.create_collection(name=config.DB_NAME)
 

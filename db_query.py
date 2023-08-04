@@ -1,20 +1,27 @@
 import chromadb
 import json
-from chromadb.config import Settings
 import config
 
 
-chroma_client = chromadb.Client(
-    Settings(
-        chroma_db_impl=config.DB_IMPL,
-        persist_directory=config.DB_LOCATION
-    ))
+def get_chroma_response(query):
+    """
+    Get a response from the Chroma database
+    :param query: The query to send to the database
+    :return: A response from the database
+    """
 
-collection = chroma_client.get_collection(name=config.DB_NAME)
+    chroma_client = chromadb.PersistentClient(path=config.DB_LOCATION)
 
-results = collection.query(
-    query_texts=["guilty or innocent"],
-    n_results=2
-)
+    collection = chroma_client.get_collection(name=config.DB_NAME)
 
-print(json.dumps(results, indent=4))
+    results = collection.query(
+        query_texts=[query],
+        n_results=2
+    )
+
+    return results
+
+
+if __name__ == "__main__":
+    print(json.dumps(get_chroma_response("who is guilty?"), indent=4))
+
