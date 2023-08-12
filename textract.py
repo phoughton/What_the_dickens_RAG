@@ -1,6 +1,7 @@
 from typing import Callable, List, Tuple
 import PyPDF2
 import os
+from config import SECTION_SIZE
 
 
 class Document:
@@ -62,19 +63,19 @@ def extract_from_txt(file_path: str,
     safe_sections = []
 
     for num, section in enumerate(paragraphs):
-        if len(section) > 3000:
+        if len(section) > SECTION_SIZE:
             safe_sections += section.split(".")
         else:
             safe_sections.append(section)
-        
+
     current_chunk = ""
     current_chunk_id = ""
     for num, section in enumerate(safe_sections):
-        if len(current_chunk) + len(section) > 3000:
+        if len(current_chunk) + len(section) > SECTION_SIZE:
             chunks.append(ascii(current_chunk))
             ids.append(current_chunk_id)
 
-            if len(section) > 3000:
+            if len(section) > SECTION_SIZE:
                 print(f"WARNING: {file_name} section {num + 1} is too long to fit in a chunk.")
 
         current_chunk += section + "\n\n"
