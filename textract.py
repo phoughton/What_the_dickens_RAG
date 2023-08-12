@@ -59,17 +59,28 @@ def extract_from_txt(file_path: str,
     chunks = []
 
     paragraphs = txt_file_obj.read().split("\n\n")
+    safe_sections = []
 
+    for num, section in enumerate(paragraphs):
+        if len(section) > 3000:
+            safe_sections += section.split(".")
+        else:
+            safe_sections.append(section)
+        
     current_chunk = ""
     current_chunk_id = ""
-    for num, paragraph in enumerate(paragraphs):
-        if len(current_chunk) + len(paragraph) > 4000:
-            chunks.append(current_chunk)
+    for num, section in enumerate(safe_sections):
+        if len(current_chunk) + len(section) > 3000:
+            chunks.append(ascii(current_chunk))
             ids.append(current_chunk_id)
-            current_chunk = ""
-            current_chunk_id = ""
-        current_chunk += paragraph + "\n\n"
-        current_chunk_id += f"{file_name}: paragraph {num + 1}, "
+
+            if len(section) > 3000:
+                print(f"WARNING: {file_name} section {num + 1} is too long to fit in a chunk.")
+
+        current_chunk += section + "\n\n"
+        current_chunk_id += f"{num + 1}, "
+
+        current_chunk_id = f"{file_name.split('.')[0]}, section(s): " + current_chunk_id
 
     if current_chunk:
         chunks.append(current_chunk)
@@ -88,6 +99,7 @@ def read_all_files(file_path: str,
 
     for file_name in os.listdir(file_path):
         if file_name.endswith(file_extension):
+            print(f"Reading {file_name}...")
             books.append(Document(file_path,
                                   file_name,
                                   extractor=extract_func))
