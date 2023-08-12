@@ -3,7 +3,7 @@ from textract import extract_from_txt, read_all_files
 import config
 
 
-books = read_all_files("data_in/charles_dickens/",
+books = read_all_files("data_in/charles_dickens_edited/",
                        ".txt",
                        extract_from_txt)
 
