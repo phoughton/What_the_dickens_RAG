@@ -1,20 +1,19 @@
 import chromadb
-from textract import extract_from_txt, read_all_files
+from textract import extract_from_txt, get_file_names, Document
 import config
 
 
-books = read_all_files("data_in/charles_dickens_edited/",
-                       ".txt",
-                       extract_from_txt)
+books = get_file_names(config.DATA_IN_LOCATION, ".txt")
 
 chroma_client = chromadb.PersistentClient(path=config.DB_LOCATION)
 
-
 collection = chroma_client.create_collection(name=config.DB_NAME)
 
-for book in books:
-    print(book)
-
+for book_name in books:
+    print(f"Parsing: {book_name}")
+    book = Document(config.DATA_IN_LOCATION, book_name,
+                    extractor=extract_from_txt)
+    print(f"Adding: {book_name}")
     collection.add(
         documents=book.get_book_chunks(),
         metadatas=book.get_metadata(),

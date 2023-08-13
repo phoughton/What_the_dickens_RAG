@@ -92,17 +92,13 @@ def extract_from_txt(file_path: str,
     return ids, chunks
 
 
-def read_all_files(file_path: str,
-                   file_extension: str,
-                   extract_func) -> list:
+def get_file_names(file_path: str,
+                   file_extension: str) -> list:
 
     books = []
 
     for file_name in os.listdir(file_path):
         if file_name.endswith(file_extension):
-            print(f"Reading {file_name}...")
-            books.append(Document(file_path,
-                                  file_name,
-                                  extractor=extract_func))
+            books.append(file_name)
 
     return books
