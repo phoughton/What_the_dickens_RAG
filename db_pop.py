@@ -14,6 +14,7 @@ for book_name in books:
     book = Document(config.DATA_IN_LOCATION, book_name,
                     extractor=extract_from_txt)
     print(f"Adding: {book_name}")
+    print(f"Book chunks: {len(book.get_book_chunks())}")
     collection.add(
         documents=book.get_book_chunks(),
         metadatas=book.get_metadata(),
