@@ -7,7 +7,7 @@ books = get_file_names(config.DATA_IN_LOCATION, ".txt")
 
 chroma_client = chromadb.PersistentClient(path=config.DB_LOCATION)
 
-collection = chroma_client.create_collection(name=config.DB_NAME)
+collection = chroma_client.get_or_create_collection(name=config.DB_NAME)
 
 for book_name in books:
     print(f"Parsing: {book_name}")
