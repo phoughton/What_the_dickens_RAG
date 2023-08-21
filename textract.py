@@ -60,21 +60,17 @@ def extract_from_txt(file_path: str,
     chunks = []
 
     sections = txt_file_obj.read().split("\n\n")
-
+    
     safe_sections = group_chunks_into_bigger_chunks(sections, MIN_SECTION_SIZE)
 
-    current_chunk = ""
     current_chunk_id = ""
     for num, section in enumerate(safe_sections):
         current_chunk_id = f"{file_name.split('.')[0]}, section: {num}"
-        chunks.append(ascii(current_chunk))
+        chunks.append(section)
         ids.append(current_chunk_id)
 
         if len(section) > BIG_SECTION_SIZE:
             print(f"WARNING: {file_name} section {num + 1} is: {len(section)} chars long")
-
-        current_chunk += section + "\n\n"
-        current_chunk_id += f"{num + 1}, "
 
     txt_file_obj.close()
 
@@ -100,6 +96,7 @@ def group_chunks_into_bigger_chunks(chunks: list,
     current_chunk = ""
 
     for chunk in chunks:
+        chunk = ascii(chunk.strip())
         if len(current_chunk) + len(chunk) < chunk_size:
             current_chunk += chunk
         else:
