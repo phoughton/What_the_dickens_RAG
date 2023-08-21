@@ -1,7 +1,7 @@
 from typing import Callable, List, Tuple
 import PyPDF2
 import os
-from config import SECTION_SIZE
+from config import MIN_SECTION_SIZE, BIG_SECTION_SIZE
 
 
 class Document:
@@ -59,33 +59,22 @@ def extract_from_txt(file_path: str,
     ids = []
     chunks = []
 
-    paragraphs = txt_file_obj.read().split("\n\n")
-    safe_sections = []
+    sections = txt_file_obj.read().split("\n\n")
 
-    for num, section in enumerate(paragraphs):
-        if len(section) > SECTION_SIZE:
-            safe_sections += section.split(".")
-        else:
-            safe_sections.append(section)
+    safe_sections = group_chunks_into_bigger_chunks(sections, MIN_SECTION_SIZE)
 
     current_chunk = ""
     current_chunk_id = ""
     for num, section in enumerate(safe_sections):
-        if len(current_chunk) + len(section) > SECTION_SIZE:
-            chunks.append(ascii(current_chunk))
-            ids.append(current_chunk_id)
+        current_chunk_id = f"{file_name.split('.')[0]}, section: {num}"
+        chunks.append(ascii(current_chunk))
+        ids.append(current_chunk_id)
 
-            if len(section) > SECTION_SIZE:
-                print(f"WARNING: {file_name} section {num + 1} is too long to fit in a chunk.")
+        if len(section) > BIG_SECTION_SIZE:
+            print(f"WARNING: {file_name} section {num + 1} is: {len(section)} chars long")
 
         current_chunk += section + "\n\n"
         current_chunk_id += f"{num + 1}, "
-
-        current_chunk_id = f"{file_name.split('.')[0]}, section(s): " + current_chunk_id
-
-    if current_chunk:
-        chunks.append(current_chunk)
-        ids.append(current_chunk_id)
 
     txt_file_obj.close()
 
@@ -102,3 +91,19 @@ def get_file_names(file_path: str,
             books.append(file_name)
 
     return books
+
+
+def group_chunks_into_bigger_chunks(chunks: list,
+                                    chunk_size: int) -> list:
+
+    grouped_chunks = []
+    current_chunk = ""
+
+    for chunk in chunks:
+        if len(current_chunk) + len(chunk) < chunk_size:
+            current_chunk += chunk
+        else:
+            grouped_chunks.append(current_chunk)
+            current_chunk = chunk
+
+    return grouped_chunks
