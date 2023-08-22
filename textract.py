@@ -66,7 +66,7 @@ def extract_from_txt(file_path: str,
     current_chunk_id = ""
     for num, section in enumerate(safe_sections):
         current_chunk_id = f"{file_name.split('.')[0]}, section: {num}"
-        chunks.append(section)
+        chunks.append(remove_unwanted_chars(section))
         ids.append(current_chunk_id)
 
         if len(section) > BIG_SECTION_SIZE:
@@ -87,6 +87,11 @@ def get_file_names(file_path: str,
             books.append(file_name)
 
     return books
+
+
+def remove_unwanted_chars(text: str) -> str:
+    no_whitespace = text.replace("\\n", " ").replace("\\t", " ")
+    return no_whitespace
 
 
 def group_chunks_into_bigger_chunks(chunks: list,

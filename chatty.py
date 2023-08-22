@@ -7,6 +7,16 @@ import openai
 openai.api_key = config("API_KEY")
 THE_SCORER_URL = str(config("SCORING_URL"))
 
+
+def extract_context_additions(data: dict) -> str:
+    """Extracts the context additions from the data"""
+    context_additions = ""
+    for index, doc in enumerate(data["documents"]):
+        the_id = data["ids"][0][index]
+        context_additions = the_id + f": {doc}"
+    return context_additions
+
+
 msg_flow = [
     {
         "role": "system", "content": """
@@ -40,7 +50,7 @@ functions = [
 
 
 response = openai.ChatCompletion.create(
-    model="gpt-4-0613",
+    model="gpt-4",
     messages=msg_flow,
     functions=functions,
     function_call="auto",
@@ -59,16 +69,27 @@ if function.get("name") == "do_vector_db_query":
     relavent_data = db_query.get_chroma_response(criteria)
     print()
     print(json.dumps(relavent_data, indent=4))
+    print()
+
+    context_additions = extract_context_additions(relavent_data)
 
     msg_flow2 = [
         {
-            "role": "system", "content": f"""
+            "role": "assistant", "content": f"""
             You will answer the following question: \"{question}\""
 
             Using the following information provided in JSON:
-            {json.dumps(relavent_data, indent=4)}
+
+            {context_additions}
+            
+            Make the response sound authoritative and use the  data aprovided above to answer the question.
             """}
     ]
+
+    print()
+    print(json.dumps(msg_flow2, indent=4))
+    print()
+
     response = openai.ChatCompletion.create(
         model="gpt-4-0613",
         messages=msg_flow,
