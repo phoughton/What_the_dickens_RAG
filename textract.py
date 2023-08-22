@@ -90,7 +90,7 @@ def get_file_names(file_path: str,
 
 
 def remove_unwanted_chars(text: str) -> str:
-    no_whitespace = text.replace("\\n", " ").replace("\\t", " ")
+    no_whitespace = text.replace("\\n", " ").replace("\\t", " ").replace("\n", " ").replace("\\'", "'").replace("\'", "'")
     return no_whitespace
 
 
