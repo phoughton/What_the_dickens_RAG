@@ -60,7 +60,7 @@ def extract_from_txt(file_path: str,
     chunks = []
 
     sections = txt_file_obj.read().split("\n\n")
-    
+
     safe_sections = group_chunks_into_bigger_chunks(sections, MIN_SECTION_SIZE)
 
     current_chunk_id = ""
