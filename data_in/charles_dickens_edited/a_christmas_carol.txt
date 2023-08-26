@@ -1,47 +1,4 @@
 ﻿
-PREFACE
-
-I have endeavoured in this Ghostly little book to raise the Ghost of an
-Idea which shall not put my readers out of humour with themselves, with
-each other, with the season, or with me. May it haunt their house
-pleasantly, and no one wish to lay it.
-
-Their faithful Friend and Servant,
-
-C. D.
-
-December, 1843.
-
-
-CHARACTERS
-
-Bob Cratchit, clerk to Ebenezer Scrooge.
-Peter Cratchit, a son of the preceding.
-Tim Cratchit ("Tiny Tim"), a cripple, youngest son of Bob Cratchit.
-Mr. Fezziwig, a kind-hearted, jovial old merchant.
-Fred, Scrooge's nephew.
-Ghost of Christmas Past, a phantom showing things past.
-Ghost of Christmas Present, a spirit of a kind, generous,
-  and hearty nature.
-Ghost of Christmas Yet to Come, an apparition showing the shadows
-  of things which yet may happen.
-Ghost of Jacob Marley, a spectre of Scrooge's former partner in business.
-Joe, a marine-store dealer and receiver of stolen goods.
-Ebenezer Scrooge, a grasping, covetous old man, the surviving partner
-  of the firm of Scrooge and Marley.
-Mr. Topper, a bachelor.
-Dick Wilkins, a fellow apprentice of Scrooge's.
-
-Belle, a comely matron, an old sweetheart of Scrooge's.
-Caroline, wife of one of Scrooge's debtors.
-Mrs. Cratchit, wife of Bob Cratchit.
-Belinda and Martha Cratchit, daughters of the preceding.
-
-Mrs. Dilber, a laundress.
-Fan, the sister of Scrooge.
-Mrs. Fezziwig, the worthy partner of Mr. Fezziwig.
-
-
 MARLEY'S GHOST
 
 
@@ -267,8 +224,6 @@ seven years ago, this very night.'
 'We have no doubt his liberality is well represented by his surviving
 partner,' said the gentleman, presenting his credentials.
 
-[Illustration: THEY WERE PORTLY GENTLEMEN, PLEASANT TO BEHOLD]
-
 It certainly was; for they had been two kindred spirits. At the ominous
 word 'liberality' Scrooge frowned, and shook his head, and handed the
 credentials back.
@@ -385,10 +340,6 @@ The clerk smiled faintly.
 'And yet,' said Scrooge, 'you don't think _me_ ill used when I pay a
 day's wages for no work.'
 
-[Illustration: _Bob Cratchit went down a slide on Cornhill, at the end
-of a lane of boys, twenty times, in honour of its being Christmas
-Eve_]
-
 The clerk observed that it was only once a year.
 
 'A poor excuse for picking a man's pocket every twenty-fifth of
@@ -483,10 +434,6 @@ head) upon the hob. Nobody under the bed; nobody in the closet; nobody
 in his dressing-gown, which was hanging up in a suspicious attitude
 against the wall. Lumber-room as usual. Old fire-guard, old shoes, two
 fish baskets, washing-stand on three legs, and a poker.
-
-[Illustration: _Nobody under the bed; nobody in the closet; nobody in
-his dressing-gown, which was hanging up in a suspicious attitude against
-the wall_]
 
 Quite satisfied, he closed his door, and locked himself in; double
 locked himself in, which was not his custom. Thus secured against
@@ -685,8 +632,6 @@ It was a habit with Scrooge, whenever he became thoughtful, to put his
 hands in his breeches pockets. Pondering on what the Ghost had said, he
 did so now, but without lifting up his eyes, or getting off his knees.
 
-[Illustration: ON THE WINGS OF THE WIND]
-
 'You must have been very slow about it, Jacob,' Scrooge observed in a
 business-like manner, though with humility and deference.
 
@@ -785,9 +730,6 @@ smart sound its teeth made when the jaws were brought together by the
 bandage. He ventured to raise his eyes again, and found his supernatural
 visitor confronting him in an erect attitude, with its chain wound over
 and about its arm.
-
-[Illustration: _The air was filled with phantoms, wandering hither and
-thither in restless haste and moaning as they went_]
 
 The apparition walked backward from him; and, at every step it took, the
 window raised itself a little, so that, when the spectre reached it, it
@@ -1179,9 +1121,6 @@ and, getting into it, drove gaily down the garden sweep; the quick
 wheels dashing the hoar-frost and snow from off the dark leaves of the
 evergreens like spray.
 
-[Illustration: HE PRODUCED A DECANTER OF CURIOUSLY LIGHT WINE, AND A
-BLOCK OF CURIOUSLY HEAVY CAKE]
-
 'Always a delicate creature, whom a breath might have withered,' said
 the Ghost. 'But she had a large heart!'
 
@@ -1277,9 +1216,6 @@ But, scorning rest upon his reappearance, he instantly began again,
 though there were no dancers yet, as if the other fiddler had been
 carried home, exhausted, on a shutter, and he were a bran-new man
 resolved to beat him out of sight, or perish.
-
-[Illustration: _Then old Fezziwig stood out to dance with Mrs.
-Fezziwig_]
 
 There were more dances, and there were forfeits, and more dances, and
 there was cake, and there was negus, and there was a great piece of Cold
@@ -1431,8 +1367,6 @@ one guiding principle to do so, do I not know that your repentance and
 regret would surely follow? I do; and I release you. With a full heart,
 for the love of him you once were.'
 
-[Illustration: SHE LEFT HIM, AND THEY PARTED]
-
 He was about to speak; but, with her head turned from him, she resumed:
 
 'You may--the memory of what is past half makes me hope you will--have
@@ -1479,8 +1413,6 @@ lashes of her downcast eyes, and never raised a blush; to have let loose
 waves of hair, an inch of which would be a keepsake beyond price: in
 short, I should have liked, I do confess, to have had the lightest
 license of a child, and yet to have been man enough to know its value.
-
-[Illustration: _A flushed and boisterous group_]
 
 But now a knocking at the door was heard, and such a rush immediately
 ensued that she, with laughing face and plundered dress, was borne
@@ -1542,8 +1474,6 @@ of its adversary, Scrooge observed that its light was burning high and
 bright; and dimly connecting that with its influence over him, he seized
 the extinguisher-cap, and by a sudden action pressed it down upon its
 head.
-
-[Illustration: _Laden with Christmas toys and presents_]
 
 The Spirit dropped beneath it, so that the extinguisher covered its
 whole form; but though Scrooge pressed it down with all his force, he
@@ -1700,8 +1630,6 @@ blazing away to their dear heart's content. There was nothing very
 cheerful in the climate or the town, and yet was there an air of
 cheerfulness abroad that the clearest summer air and brightest summer
 sun might have endeavoured to diffuse in vain.
-
-[Illustration: THERE WAS NOTHING VERY CHEERFUL IN THE CLIMATE]
 
 For the people who were shovelling away on the house-tops were jovial
 and full of glee; calling out to one another from the parapets, and now
@@ -1930,8 +1858,6 @@ delight arose all round the board, and even Tiny Tim, excited by the two
 young Cratchits, beat on the table with the handle of his knife and
 feebly cried Hurrah!
 
-[Illustration: HE HAD BEEN TIM'S BLOOD-HORSE ALL THE WAY FROM CHURCH]
-
 There never was such a goose. Bob said he didn't believe there ever was
 such a goose cooked. Its tenderness and flavour, size and cheapness,
 were the themes of universal admiration. Eked out by apple sauce and
@@ -1965,8 +1891,6 @@ Everybody had something to say about it, but nobody said or thought it
 was at all a small pudding for a large family. It would have been flat
 heresy to do so. Any Cratchit would have blushed to hint at such a
 thing.
-
-[Illustration: WITH THE PUDDING]
 
 At last the dinner was all done, the cloth was cleared, the hearth
 swept, and the fire made up. The compound in the jug being tasted and
@@ -2272,9 +2196,6 @@ and thought that if he could have listened to it often, years ago, he
 might have cultivated the kindnesses of life for his own happiness with
 his own hands, without resorting to the sexton's spade that buried Jacob
 Marley.
-
-[Illustration: _The way he went after that plump sister in the lace
-tucker!_]
 
 But they didn't devote the whole evening to music. After a while they
 played at forfeits; for it is good to be children sometimes, and never
@@ -2710,9 +2631,6 @@ that there was nothing more to come.
 
 'That's your account,' said Joe, 'and I wouldn't give another sixpence,
 if I was to be boiled for not doing it. Who's next?'
-
-
-[Illustration: _"What do you call this?" said Joe. "Bed-curtains."_]
 
 Mrs. Dilber was next. Sheets and towels, a little wearing apparel, two
 old fashioned silver teaspoons, a pair of sugar-tongs, and a few
@@ -3342,9 +3260,6 @@ footstool, or he wouldn't have done it on any account.
 
 'Why, bless my soul!' cried Fred, 'who's that?'
 
-[Illustration: _"It's I, your uncle Scrooge. I have come to dinner. Will
-you let me in, Fred?"_]
-
 'It's I. Your uncle Scrooge. I have come to dinner. Will you let me in,
 Fred?'
 
@@ -3395,9 +3310,6 @@ your salary, and endeavour to assist your struggling family, and we will
 discuss your affairs this very afternoon, over a Christmas bowl of
 smoking bishop, Bob! Make up the fires and buy another coal-scuttle
 before you dot another i, Bob Cratchit!'
-
-[Illustration: _"Now, I'll tell you what, my friend," said Scrooge. "I
-am not going to stand this sort of thing any longer."_]
 
 Scrooge was better than his word. He did it all, and infinitely more;
 and to Tiny Tim, who did NOT die, he was a second father. He became as
