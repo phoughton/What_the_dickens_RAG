@@ -37,6 +37,7 @@ Make the response sound authoritative and use the  data aprovided above to answe
 print()
 print(json.dumps(msg_flow, indent=4))
 print()
+print()
 
 response = openai.ChatCompletion.create(
     model="gpt-4-0613",
@@ -46,4 +47,7 @@ response = openai.ChatCompletion.create(
     frequency_penalty=0,
     presence_penalty=0
 )
-print(response)
+if "choices" not in response:
+    print("Sorry no answer in the response from ChatGPT")
+else:
+    print(response.get("choices")[0].get("message").get("content"))
