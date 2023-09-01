@@ -27,12 +27,17 @@ print()
 context_additions = extract_context_additions(relavent_data)
 
 msg_flow = [
-        {
-            "role": "assistant", "content": 
-f"""You will answer the following question or statement in 3 back ticks: ```{question}```
-The response should be based on the following paragraphs from the book, contained in the 3 back ticks:```{context_additions}```
-Make the response sound authoritative and use the  data aprovided above to answer the question."""}
-    ]
+    {
+        "role": "system", "content": "You are a system expert in the works of Charles Dickens. You will answer questions about his works, based only on the extracts provided by the assistant."
+    },
+    {
+        "role": "assistant", "content":
+            f"""The response should be based on the following paragraphs from the books, contained between these back ticks:```{context_additions}```. Make the response sound authoritative and use the  data aprovided above to answer the question."""
+    },
+    {
+        "role": "user", "content": question
+    }
+]
 
 print()
 print(json.dumps(msg_flow, indent=4))
