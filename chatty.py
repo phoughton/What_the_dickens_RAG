@@ -1,11 +1,22 @@
 from decouple import config
 import json
+import time
+import sys
 import db_query
 import openai
 
 
 openai.api_key = config("API_KEY")
 THE_SCORER_URL = str(config("SCORING_URL"))
+
+
+def type_text(text: str) -> None:
+    """Types the text out on the screen"""
+    for char in text:
+        sys.stdout.write(char)
+        sys.stdout.flush()
+        time.sleep(0.01)
+    print()
 
 
 def extract_context_additions(data: dict) -> str:
@@ -17,12 +28,10 @@ def extract_context_additions(data: dict) -> str:
     return context_additions
 
 
-question = input("Ask me a question about the works of Charles Dickens: ")
+type_text("Hello, I am a system expert in the works of Charles Dickens. I will answer questions about his works, based only on the extracts provided by the assistant.")
+question = input(":")
 
 relavent_data = db_query.get_chroma_response(question)
-print()
-print(json.dumps(relavent_data, indent=4))
-print()
 
 context_additions = extract_context_additions(relavent_data)
 
@@ -39,10 +48,6 @@ msg_flow = [
     }
 ]
 
-print()
-print(json.dumps(msg_flow, indent=4))
-print()
-print()
 
 response = openai.ChatCompletion.create(
     model="gpt-4-0613",
@@ -53,6 +58,8 @@ response = openai.ChatCompletion.create(
     presence_penalty=0
 )
 if "choices" not in response:
-    print("Sorry no answer in the response from ChatGPT")
+    print("Sorry, I can't answer that question, pleasw try rephrasing your question.")
 else:
-    print(response.get("choices")[0].get("message").get("content"))
+    answer = response.get("choices")[0].get("message").get("content")
+
+    type_text(answer)
