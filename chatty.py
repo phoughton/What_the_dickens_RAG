@@ -1,10 +1,19 @@
 from decouple import config
-import json
+import argparse
 import time
 import sys
 import db_query
 import openai
 
+
+parser = argparse.ArgumentParser(description='Chat with a Charles Dickens expert.')
+
+parser.add_argument('-v', '--verbose',
+                    help='Text to overlay',
+                    required=False,
+                    default=False,
+                    action='store_true')
+args = parser.parse_args()
 
 openai.api_key = config("API_KEY")
 THE_SCORER_URL = str(config("SCORING_URL"))
@@ -29,37 +38,44 @@ def extract_context_additions(data: dict) -> str:
 
 
 type_text("Hello, I am a system expert in the works of Charles Dickens. I will answer questions about his works, based only on the extracts provided by the assistant.")
-question = input(":")
 
-relavent_data = db_query.get_chroma_response(question)
+while True:
+    question = input(":")
+    if question in ["exit", "quit"]:
+        break
 
-context_additions = extract_context_additions(relavent_data)
+    relavent_data = db_query.get_chroma_response(question)
 
-msg_flow = [
-    {
-        "role": "system", "content": "You are a system expert in the works of Charles Dickens. You will answer questions about his works, based only on the extracts provided by the assistant."
-    },
-    {
-        "role": "assistant", "content":
-            f"""The response should be based on the following paragraphs from the books, contained between these back ticks:```{context_additions}```. Make the response sound authoritative and use the  data aprovided above to answer the question."""
-    },
-    {
-        "role": "user", "content": question
-    }
-]
+    context_additions = extract_context_additions(relavent_data)
+
+    if args.verbose:
+        print(f"Context additions: {context_additions}")
+
+    msg_flow = [
+        {
+            "role": "system", "content": "You are a system expert in the works of Charles Dickens. You will answer questions about his works, based only on the extracts provided by the assistant."
+        },
+        {
+            "role": "assistant", "content":
+                f"""The response should be based only on the following paragraphs from the books, contained between these back ticks:```{context_additions}```. Make the response sound authoritative and use the  data aprovided above to answer the question."""
+        },
+        {
+            "role": "user", "content": question
+        }
+    ]
 
 
-response = openai.ChatCompletion.create(
-    model="gpt-4-0613",
-    messages=msg_flow,
-    temperature=0,
-    top_p=1,
-    frequency_penalty=0,
-    presence_penalty=0
-)
-if "choices" not in response:
-    print("Sorry, I can't answer that question, pleasw try rephrasing your question.")
-else:
-    answer = response.get("choices")[0].get("message").get("content")
+    response = openai.ChatCompletion.create(
+        model="gpt-4-0613",
+        messages=msg_flow,
+        temperature=0,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+    if "choices" not in response:
+        print("Sorry, I can't answer that question, pleasw try rephrasing your question.")
+    else:
+        answer = response.get("choices")[0].get("message").get("content")
 
-    type_text(answer)
+        type_text(answer)
