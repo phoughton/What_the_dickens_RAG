@@ -31,9 +31,10 @@ def type_text(text: str) -> None:
 def extract_context_additions(data: dict) -> str:
     """Extracts the context additions from the data"""
     context_additions = ""
-    for index, doc in enumerate(data["documents"]):
+
+    for index, doc in enumerate(data["documents"][0]):
         the_id = data["ids"][0][index]
-        context_additions = the_id + f": {doc}"
+        context_additions += the_id + f": {doc}\n\n"
     return context_additions
 
 
@@ -49,7 +50,9 @@ while True:
     context_additions = extract_context_additions(relavent_data)
 
     if args.verbose:
-        print(f"Context additions: {context_additions}")
+        print("\nContext additions: ")
+        print(context_additions)
+        print()
 
     msg_flow = [
         {
@@ -63,7 +66,6 @@ while True:
             "role": "user", "content": question
         }
     ]
-
 
     response = openai.ChatCompletion.create(
         model="gpt-4-0613",
