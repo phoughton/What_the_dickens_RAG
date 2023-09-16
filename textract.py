@@ -72,6 +72,9 @@ def extract_from_txt(file_path: str,
         if len(section) > BIG_SECTION_SIZE:
             print(f"WARNING: {file_name} section {num + 1} is: {len(section)} chars long")
 
+        with open(f"logs/{file_name}_log.txt", "a") as f:
+            f.write(f"Chunk ID: {current_chunk_id}\n {section}\n{len(section)}\n")
+
     txt_file_obj.close()
 
     return ids, chunks
