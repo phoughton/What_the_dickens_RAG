@@ -9,7 +9,12 @@ import openai
 parser = argparse.ArgumentParser(description='Chat with a Charles Dickens expert.')
 
 parser.add_argument('-v', '--verbose',
-                    help='Text to overlay',
+                    help='Show details of the query being handled',
+                    required=False,
+                    default=False,
+                    action='store_true')
+parser.add_argument('-n', '--noai',
+                    help='Disable the AI and just use the database',
                     required=False,
                     default=False,
                     action='store_true')
@@ -67,17 +72,27 @@ while True:
         }
     ]
 
-    response = openai.ChatCompletion.create(
-        model="gpt-4-0613",
-        messages=msg_flow,
-        temperature=0,
-        top_p=1,
-        frequency_penalty=0,
-        presence_penalty=0
-    )
-    if "choices" not in response:
-        print("Sorry, I can't answer that question, pleasw try rephrasing your question.")
-    else:
-        answer = response.get("choices")[0].get("message").get("content")
+    if args.verbose:
+        print("Message flow: ")
+        print(msg_flow)
+        print()
 
-        type_text(answer)
+    if args.noai:
+
+        print("AI answering is disabled.")
+
+    else:
+        response = openai.ChatCompletion.create(
+            model="gpt-4-0613",
+            messages=msg_flow,
+            temperature=0,
+            top_p=1,
+            frequency_penalty=0,
+            presence_penalty=0
+        )
+        if "choices" not in response:
+            print("Sorry, I can't answer that question, pleasw try rephrasing your question.")
+        else:
+            answer = response.get("choices")[0].get("message").get("content")
+
+            type_text(answer)

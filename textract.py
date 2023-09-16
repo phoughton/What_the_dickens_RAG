@@ -1,7 +1,9 @@
 from typing import Callable, List, Tuple
 import PyPDF2
 import os
+import re
 from config import MIN_SECTION_SIZE, BIG_SECTION_SIZE
+from unidecode import unidecode
 
 
 class Document:
@@ -59,7 +61,11 @@ def extract_from_txt(file_path: str,
     ids = []
     chunks = []
 
-    sections = txt_file_obj.read().split("\n\n")
+    text = txt_file_obj.read()
+
+    paragraphs = text.strip().split('\n\n')
+
+    sections = [' '.join(para.split('\n')) for para in paragraphs]
 
     safe_sections = group_chunks_into_bigger_chunks(sections, MIN_SECTION_SIZE)
 
@@ -73,8 +79,10 @@ def extract_from_txt(file_path: str,
             print(f"WARNING: {file_name} section {num + 1} is: {len(section)} chars long")
 
         with open(f"logs/{file_name}_log.txt", "a") as f:
-            f.write(f"Chunk ID: {current_chunk_id}\n {section}\n{len(section)}\n")
-
+            f.write(f"Chunk ID: {current_chunk_id}")
+            f.write("\n")
+            f.write(section)
+            f.write("\n\n")
     txt_file_obj.close()
 
     return ids, chunks
@@ -93,8 +101,12 @@ def get_file_names(file_path: str,
 
 
 def remove_unwanted_chars(text: str) -> str:
-    no_whitespace = text.replace("\\n", " ").replace("\\t", " ").replace("\n", " ").replace("\\'", "'").replace("\'", "'").replace("\"", "'")
-    return no_whitespace
+
+    no_whitespace = re.sub(r'\s+', ' ', text)
+
+    no_quotes = no_whitespace.replace('\u2019', "'").replace('\u2018', "'") \
+        .replace('\u201c', "'").replace('\u201d', "'")
+    return no_quotes
 
 
 def group_chunks_into_bigger_chunks(chunks: list,
@@ -104,7 +116,7 @@ def group_chunks_into_bigger_chunks(chunks: list,
     current_chunk = ""
 
     for chunk in chunks:
-        chunk = ascii(chunk.strip())
+        chunk = unidecode(chunk.strip())
         if len(current_chunk) + len(chunk) < chunk_size:
             current_chunk += chunk
         else:
