@@ -47,7 +47,7 @@ type_text("Hello, I am a system expert in the works of Charles Dickens. I will a
 
 while True:
     question = input(":")
-    if question in ["exit", "quit"]:
+    if question in ["exit", "quit", ""]:
         break
 
     relavent_data = db_query.get_chroma_response(question)
@@ -61,11 +61,14 @@ while True:
 
     msg_flow = [
         {
-            "role": "system", "content": "You are a system expert in the works of Charles Dickens. You will answer questions about his works, based only on the extracts provided by the assistant."
+            "role": "system", "content": "You are a expert librarian. You will answer questions about his works based only on the extracts provided by the assistant. You will not use your own knowledge. If the extracts mention subject or action that you do not know about, you will not make up an answer."
         },
         {
             "role": "assistant", "content":
-                f"""The response should be based only on the following paragraphs from the books, contained between these back ticks:```{context_additions}```. Make the response sound authoritative and use the  data aprovided above to answer the question."""
+                f"""The response should be based only on the following sections from the books, contained between these back ticks:```{context_additions}```.
+                Make the response sound authoritative and use the data provided above to answer the question. 
+                You can quote the extracts provided if needed. The quotes must exactly match the extracts provided.
+                Do not comment on the accuracy of the extracts provided or if they are anachronistic."""
         },
         {
             "role": "user", "content": question
