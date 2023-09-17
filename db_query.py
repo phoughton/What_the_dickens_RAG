@@ -16,7 +16,7 @@ def get_chroma_response(query):
 
     results = collection.query(
         query_texts=[query],
-        n_results=10
+        n_results=20
     )
 
     return results
