@@ -61,29 +61,29 @@ def extract_from_txt(file_path: str,
     ids = []
     chunks = []
 
-    text = txt_file_obj.read()
+    # Group lines into sentences and small paragraphs into larger sections
+    text_sections = tidy_paragraphs(txt_file_obj.read())
 
-    paragraphs = text.strip().split('\n\n')
-
-    sections = [' '.join(para.split('\n')) for para in paragraphs]
-
-    safe_sections = group_chunks_into_bigger_chunks(sections, MIN_SECTION_SIZE)
+    # Remove confusing characters and image references
+    cleaned_sections = remove_unwanted_chars(text_sections)
 
     current_chunk_id = ""
-    for num, section in enumerate(safe_sections):
+    for num, section in enumerate(cleaned_sections):
         current_chunk_id = f"{file_name.split('.')[0]}, section: {num}"
-        chunks.append(remove_unwanted_chars(section))
+        chunks.append(section)
         ids.append(current_chunk_id)
 
         if len(section) > BIG_SECTION_SIZE:
             print(f"WARNING: {file_name} section {num + 1} is: {len(section)} chars long")
 
-        with open(f"logs/{file_name}_log.txt", "a") as f:
-            f.write(f"Chunk ID: {current_chunk_id}")
-            f.write("\n")
-            f.write(section)
-            f.write("\n\n")
     txt_file_obj.close()
+
+    for section_num, section_text in enumerate(chunks):
+        with open(f"logs/{file_name}_log.txt", "a") as f:
+            f.write(f"Chunk ID: {ids[section_num]}")
+            f.write("\n")
+            f.write(section_text)
+            f.write("\n\n")
 
     return ids, chunks
 
@@ -100,13 +100,27 @@ def get_file_names(file_path: str,
     return books
 
 
-def remove_unwanted_chars(text: str) -> str:
+def tidy_paragraphs(text: str) -> list:
+    paragraphs = text.strip().split('\n\n')
 
-    no_whitespace = re.sub(r'\s+', ' ', text)
+    sections = [' '.join(para.split('\n')) for para in paragraphs]
 
-    no_quotes = no_whitespace.replace('\u2019', "'").replace('\u2018', "'") \
-        .replace('\u201c', "'").replace('\u201d', "'")
-    return no_quotes
+    return group_chunks_into_bigger_chunks(sections, MIN_SECTION_SIZE)
+
+
+def remove_unwanted_chars(list_of_texts: list) -> list:
+
+    cleaned_texts = []
+
+    for text in list_of_texts:
+        no_whitespace = re.sub(r'\s+', ' ', text)
+
+        no_quotes = no_whitespace.replace('\u2019', "'").replace('\u2018', "'") \
+            .replace('\u201c', "'").replace('\u201d', "'")
+
+        cleaned_texts.append(re.sub(r'\[Illustration\]', ' ', no_quotes))
+
+    return cleaned_texts
 
 
 def group_chunks_into_bigger_chunks(chunks: list,
@@ -118,7 +132,7 @@ def group_chunks_into_bigger_chunks(chunks: list,
     for chunk in chunks:
         chunk = unidecode(chunk.strip())
         if len(current_chunk) + len(chunk) < chunk_size:
-            current_chunk += chunk
+            current_chunk += f" {chunk}"
         else:
             grouped_chunks.append(current_chunk)
             current_chunk = chunk
