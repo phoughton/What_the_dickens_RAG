@@ -30,7 +30,6 @@ def type_text(text: str) -> None:
         sys.stdout.write(char)
         sys.stdout.flush()
         time.sleep(0.01)
-    print()
 
 
 def extract_context_additions(data: dict) -> str:
@@ -43,10 +42,10 @@ def extract_context_additions(data: dict) -> str:
     return context_additions
 
 
-type_text("Hello, I am a system expert in the works of Charles Dickens. I will answer questions about his works, based only on the extracts provided by the assistant.")
+type_text("Hello, I'm an AI with access to the works of Charles Dickens. I can answer questions about his work")
 
 while True:
-    question = input(":")
+    question = input(": ")
     if question in ["exit", "quit", ""]:
         break
 
@@ -67,7 +66,7 @@ while True:
             "role": "assistant", "content":
                 f"""The response should be based only on the following sections from the books, contained between these back ticks:```{context_additions}```.
                 Make the response sound authoritative and use the data provided above to answer the question. 
-                You can quote the extracts provided if needed. The quotes must exactly match the extracts provided.
+                Quote the extracts provided if needed. The quotes must exactly match the extracts provided.
                 Do not comment on the accuracy of the extracts provided or if they are anachronistic."""
         },
         {
@@ -94,8 +93,11 @@ while True:
             presence_penalty=0
         )
         if "choices" not in response:
-            print("Sorry, I can't answer that question, pleasw try rephrasing your question.")
+            print("Sorry, I can't answer that question, please try rephrasing your question.")
         else:
             answer = response.get("choices")[0].get("message").get("content")
 
             type_text(answer)
+        
+    print()
+    
