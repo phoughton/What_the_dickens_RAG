@@ -133,3 +133,4 @@ ttyrecord
 ttylog
 
 data_store/*
+logs/*.txt
