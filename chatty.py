@@ -6,7 +6,8 @@ import db_query
 import openai
 
 
-parser = argparse.ArgumentParser(description='Chat with a Charles Dickens expert.')
+parser = argparse.ArgumentParser(
+    description='Chat with a Charles Dickens expert.')
 
 parser.add_argument('-v', '--verbose',
                     help='Show details of the query being handled',
@@ -42,7 +43,8 @@ def extract_context_additions(data: dict) -> str:
     return context_additions
 
 
-type_text("Hello, I'm an AI with access to the works of Charles Dickens. I can answer questions about his work")
+type_text("Hello, I'm an AI with access to the works of Charles Dickens. "
+          "I can answer questions about his work")
 
 while True:
     question = input(": ")
@@ -60,14 +62,22 @@ while True:
 
     msg_flow = [
         {
-            "role": "system", "content": "You are a expert librarian. You will answer questions about his works based only on the extracts provided by the assistant. You will not use your own knowledge. If the extracts mention subject or action that you do not know about, you will not make up an answer."
+            "role": "system",
+            "content": ("You are a expert librarian. You will answer "
+                        "questions about his works based only on the "
+                        "extracts provided by the assistant. You will "
+                        "not use your own knowledge. If the extracts "
+                        "mention subject or action that you do not "
+                        "know about, you will not make up an answer.")
         },
         {
-            "role": "assistant", "content":
-                f"""The response should be based only on the following sections from the books, contained between these back ticks:```{context_additions}```.
-                Make the response sound authoritative and use the data provided above to answer the question. 
-                Quote the extracts provided if needed. The quotes must exactly match the extracts provided.
-                Do not comment on the accuracy of the extracts provided or if they are anachronistic."""
+            "role": "assistant",
+            "content":
+                "The response should be based only on the following sections from the books, contained between these back ticks:\n"  # noqa: E501
+                f"```{context_additions}```\n"  # noqa: E501
+                "Make the response sound authoritative and use the data provided above to answer the question.\n"  # noqa: E501
+                "Quote the extracts provided if needed. The quotes must exactly match the extracts provided.\n"  # noqa: E501
+                "Do not comment on the accuracy of the extracts provided or if they are anachronistic.\n"  # noqa: E501
         },
         {
             "role": "user", "content": question
@@ -93,11 +103,11 @@ while True:
             presence_penalty=0
         )
         if "choices" not in response:
-            print("Sorry, I can't answer that question, please try rephrasing your question.")
+            print("Sorry, I can't answer that question, "
+                  "please try rephrasing your question.")
         else:
             answer = response.get("choices")[0].get("message").get("content")
 
             type_text(answer)
-        
+
     print()
-    
