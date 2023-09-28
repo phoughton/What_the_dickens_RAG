@@ -1,5 +1,4 @@
 import chromadb
-import json
 import config
 
 
@@ -24,4 +23,3 @@ def get_chroma_response(query):
 
 if __name__ == "__main__":
     print("For use as an import")
-
