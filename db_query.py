@@ -23,5 +23,5 @@ def get_chroma_response(query):
 
 
 if __name__ == "__main__":
-    print(json.dumps(get_chroma_response("who is guilty?"), indent=4))
+    print("For use as an import")
 
