@@ -42,6 +42,29 @@ def extract_context_additions(data: dict) -> str:
     return context_additions
 
 
+def make_openai_call(msg_flow: list, verbose: bool) -> str:
+    """Makes a call to the OpenAI API"""
+    response = openai.ChatCompletion.create(
+        model="gpt-4-0613",
+        messages=msg_flow,
+        temperature=0,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+    if verbose:
+        print("Response: ")
+        print(response)
+        print()
+
+    if "choices" not in response:
+        return ("Sorry, I can't answer that question, "
+                "please try rephrasing your question.")
+    else:
+        answer = response.get("choices")[0].get("message").get("content")
+        return answer
+
+
 type_text("Hello, I'm an AI with access to the works of Charles Dickens. "
           "I can answer questions about his work")
 
@@ -75,7 +98,7 @@ while True:
                 "The response should be based only on the following sections from the books, contained between these back ticks:\n"  # noqa: E501
                 f"```{context_additions}```\n"  # noqa: E501
                 "Make the response sound authoritative and use the data provided above to answer the question.\n"  # noqa: E501
-                "Quote the extracts provided if needed. The quotes must exactly match the extracts provided.\n"  # noqa: E501
+                "Quote the extracts provided with section numbers. The quotes and section numbers must match must exactly match those provided.\n"  # noqa: E501
                 "Do not comment on the accuracy of the extracts provided or if they are anachronistic.\n"  # noqa: E501
         },
         {
@@ -89,24 +112,9 @@ while True:
         print()
 
     if args.noai:
-
         print("AI answering is disabled.")
 
     else:
-        response = openai.ChatCompletion.create(
-            model="gpt-4-0613",
-            messages=msg_flow,
-            temperature=0,
-            top_p=1,
-            frequency_penalty=0,
-            presence_penalty=0
-        )
-        if "choices" not in response:
-            print("Sorry, I can't answer that question, "
-                  "please try rephrasing your question.")
-        else:
-            answer = response.get("choices")[0].get("message").get("content")
-
-            type_text(answer)
+        type_text(make_openai_call(msg_flow, verbose=args.verbose))
 
     print()
