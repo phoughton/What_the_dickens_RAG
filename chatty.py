@@ -22,7 +22,6 @@ parser.add_argument('-n', '--noai',
 args = parser.parse_args()
 
 openai.api_key = config("API_KEY")
-THE_SCORER_URL = str(config("SCORING_URL"))
 
 
 def type_text(text: str) -> None:
