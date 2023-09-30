@@ -45,7 +45,7 @@ def extract_context_additions(data: dict) -> str:
 def make_openai_call(msg_flow: list, verbose: bool) -> str:
     """Makes a call to the OpenAI API"""
     response = openai.ChatCompletion.create(
-        model="gpt-4-0613",
+        model="gpt-4",
         messages=msg_flow,
         temperature=0,
         top_p=1,
@@ -65,6 +65,27 @@ def make_openai_call(msg_flow: list, verbose: bool) -> str:
         return answer
 
 
+def remove_question(question: str) -> str:
+    """Removes the question from the string"""
+
+    msg_flow = [
+        {
+            "role": "system",
+                    "content": ("You are a linguist. You will analyse the text and provide an answer based on the grammar and language provided. Your answer will include  common alternative spellings of the nouns and noun phrases. ")
+        },
+        {
+            "role": "assistant",
+            "content": ("Do not answer the users question but instead analyse the text of the string presented by the user. do not explain your answer of provide a header. Provide the alternatives only.")
+        },
+        {
+            "role": "user",
+            "content": (f"{question}")
+        }
+    ]
+
+    return make_openai_call(msg_flow, verbose=args.verbose)
+
+
 type_text("Hello, I'm an AI with access to the works of Charles Dickens. "
           "I can answer questions about his work")
 
@@ -73,9 +94,18 @@ while True:
     if question in ["exit", "quit", ""]:
         break
 
-    relavent_data = db_query.get_chroma_response(question)
+    concepts_not_questions = remove_question(question)
 
-    context_additions = extract_context_additions(relavent_data)
+    query_for_db = question + " " + concepts_not_questions
+
+    if args.verbose:
+        print("\nQuery for DB: ")
+        print(query_for_db)
+        print()
+
+    related_texts = db_query.get_chroma_response(query_for_db)
+
+    context_additions = extract_context_additions(related_texts)
 
     if args.verbose:
         print("\nContext additions: ")
