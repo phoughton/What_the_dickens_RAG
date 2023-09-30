@@ -71,11 +71,16 @@ def remove_question(question: str) -> str:
     msg_flow = [
         {
             "role": "system",
-                    "content": ("You are a linguist. You will analyse the text and provide an answer based on the grammar and language provided. Your answer will include  common alternative spellings of the nouns and noun phrases. ")
+                    "content": (
+"""You are a linguist. You will analyse the text and provide an answer based on the grammar and language provided. Your answer will be a list of words in the users text, removing the questioning words and...
+
+Also add to the list common alternatives and their Victorian English conceptual equivalents with out questioning words. do not provide the results under a heading, just a list of words. """)
         },
         {
             "role": "assistant",
-            "content": ("Do not answer the users question but instead analyse the text of the string presented by the user. do not explain your answer of provide a header. Provide the alternatives only.")
+            "content": (
+"""Answer the question as a list of comma separated words E.g.:
+Word1, word2, word2, word4""")
         },
         {
             "role": "user",
@@ -96,7 +101,7 @@ while True:
 
     concepts_not_questions = remove_question(question)
 
-    query_for_db = question + " " + concepts_not_questions
+    query_for_db = concepts_not_questions + ". " + question
 
     if args.verbose:
         print("\nQuery for DB: ")
