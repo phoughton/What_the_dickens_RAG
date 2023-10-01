@@ -134,3 +134,4 @@ ttylog
 
 data_store/*
 logs/*.txt
+/data_store
