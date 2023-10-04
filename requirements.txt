@@ -7,3 +7,4 @@ python-decouple
 matplotlib
 unidecode
 dvc
+dvc_gdrive
