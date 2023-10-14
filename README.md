@@ -1,4 +1,6 @@
-# Simple Vector database
+# Using the OpenAI API & Chroma DB to build a Q&A Chatbot
+
+This will answer questions on the subject of Charles Dickens books.
 
 ## Setup
 
@@ -19,15 +21,16 @@ ORG_ID="org-YOUR ORG_ID"
 python db_pop.py
 ```
 
-## Run the query code
-
-```bash
-python db_query.py
-```
-
 ## What does it do?
 
 `db_pop.py` will load several files into a Chroma Vector Database, persisted to the file system.
 
-And then `db_query.py` will execute a query on that db.
 
+## Run the Q&A Chatbot
+And then you can start the Q&A Chatbot with:
+
+```bash
+python chatty.py
+```
+
+Under the hood, the `db_query.py` will execute a query on that db, and `chatty.py` handles the user and LLM prompting and presentation.
