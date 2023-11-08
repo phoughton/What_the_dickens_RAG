@@ -43,3 +43,9 @@ python chatty.py
 Under the hood, the `db_query.py` will execute a query on that db, and `chatty.py` handles the user and LLM prompting and presentation.
 
 The LLM used is GPT4 from Open AI. Hence the need for the OpenAI API key (see above).
+
+## Notes:
+
+1. Original texts are in data_in
+2. Dickens books are all from Project Gutenberg
+3. The originals are in data_in/charles_dickens folder and the same books but edited ready for indexing are in the data_in/charles_dickens_edited folder.
