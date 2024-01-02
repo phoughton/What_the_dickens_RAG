@@ -23,7 +23,7 @@ You can get these from the OpenAI site, warning: you will be charged for your re
 python db_pop.py
 ```
 
-This will slice up some of the files in the data_in folder. 
+This will slice up some of the files in the data_in folder and load them into the vector DB...
 
 ## What does it do?
 
