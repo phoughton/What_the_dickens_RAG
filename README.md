@@ -44,6 +44,12 @@ Under the hood, the `db_query.py` will execute a query on that db, and `chatty.p
 
 The LLM used is GPT4 from Open AI. Hence the need for the OpenAI API key (see above).
 
+## Talk & presentation
+
+This was presented at the London ChatGPT Plugins Meetup 2023/Nov/22.
+The slides are [available for download](docs/2023NOV22_Dickens_chatbot_rag.pdf).
+
+
 ## Notes:
 
 1. Original texts are in data_in
